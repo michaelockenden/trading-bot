@@ -1,6 +1,6 @@
-from trading_bot.CryptoClient import CryptoClient
-from trading_bot.GeminiMarketDataProvider import GeminiMarketDataProvider
-from trading_bot.OrderPlacementManager import OrderPlacementManager
+from trading_bot.client.CryptoClient import CryptoClient
+from trading_bot.market_data.gemini.GeminiMarketDataProvider import GeminiMarketDataProvider
+from trading_bot.trading.OrderPlacementManager import OrderPlacementManager
 
 
 class GeminiClient(CryptoClient):

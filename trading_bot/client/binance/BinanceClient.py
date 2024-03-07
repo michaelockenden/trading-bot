@@ -1,6 +1,6 @@
-from trading_bot.BinanceMarketDataProvider import BinanceMarketDataProvider
-from trading_bot.CryptoClient import CryptoClient
-from trading_bot.OrderPlacementManager import OrderPlacementManager
+from trading_bot.market_data.binance.BinanceMarketDataProvider import BinanceMarketDataProvider
+from trading_bot.client.CryptoClient import CryptoClient
+from trading_bot.trading.OrderPlacementManager import OrderPlacementManager
 
 
 class BinanceClient(CryptoClient):

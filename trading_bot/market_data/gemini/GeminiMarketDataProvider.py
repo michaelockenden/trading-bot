@@ -2,8 +2,8 @@ import json
 import threading
 import time
 
-from trading_bot.Exchanges import Exchanges
-from trading_bot.MarketDataProvider import MarketDataProvider
+from trading_bot.data.enums.Exchanges import Exchanges
+from trading_bot.market_data.MarketDataProvider import MarketDataProvider
 
 
 class GeminiMarketDataProvider(MarketDataProvider):

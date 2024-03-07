@@ -1,7 +1,7 @@
 import threading
 
-from trading_bot.Exchanges import Exchanges
-from trading_bot.WebsocketClient import WebsocketClient
+from trading_bot.data.enums.Exchanges import Exchanges
+from trading_bot.market_data.WebsocketClient import WebsocketClient
 
 
 class MarketDataProvider(WebsocketClient):
