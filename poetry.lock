@@ -117,7 +117,33 @@ files = [
 docs = ["furo (>=2023.9.10)", "proselint (>=0.13)", "sphinx (>=7.2.6)", "sphinx-autodoc-typehints (>=1.25.2)"]
 test = ["appdirs (==1.4.4)", "covdefaults (>=2.3)", "pytest (>=7.4.3)", "pytest-cov (>=4.1)", "pytest-mock (>=3.12)"]
 
+[[package]]
+name = "rel"
+version = "0.4.9.8"
+description = "Registered Event Listener. Provides standard (pyevent) interface and functionality without external dependencies"
+optional = false
+python-versions = "*"
+files = [
+    {file = "rel-0.4.9.8-py3-none-any.whl", hash = "sha256:aa9ebad45cb3ce21fc2626557c3d6195a2a0009b2c3db628d9cf510b7b9bf0fa"},
+]
+
+[[package]]
+name = "websocket-client"
+version = "1.7.0"
+description = "WebSocket client for Python with low level API options"
+optional = false
+python-versions = ">=3.8"
+files = [
+    {file = "websocket-client-1.7.0.tar.gz", hash = "sha256:10e511ea3a8c744631d3bd77e61eb17ed09304c413ad42cf6ddfa4c7787e8fe6"},
+    {file = "websocket_client-1.7.0-py3-none-any.whl", hash = "sha256:f4c3d22fec12a2461427a29957ff07d35098ee2d976d3ba244e688b8b4057588"},
+]
+
+[package.extras]
+docs = ["Sphinx (>=6.0)", "sphinx-rtd-theme (>=1.1.0)"]
+optional = ["python-socks", "wsaccel"]
+test = ["websockets"]
+
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "885ca03daa7b7cbaebb700d1f95fcfba582e5a14d2a9f9750e5a24ac0c36459b"
+content-hash = "f7ef270f05e8b0cf5bd9d1ee64099c1a23c79104b3f4ca3ef9c734ae4411b14d"
