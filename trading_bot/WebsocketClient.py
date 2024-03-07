@@ -1,5 +1,6 @@
+import time
+
 import websocket
-import rel
 
 
 class WebsocketClient:
@@ -27,7 +28,7 @@ class WebsocketClient:
                                       on_message=self._on_message)
 
     def run(self):
-        self._ws.run_forever(dispatcher=rel, reconnect=5)
-        rel.signal(2, rel.abort)
-        rel.dispatch()
+        while True:
+            self._ws.run_forever()
+            time.sleep(5)
 

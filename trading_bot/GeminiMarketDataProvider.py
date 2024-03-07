@@ -1,14 +1,15 @@
 import json
 import threading
+import time
 
 from trading_bot.Exchanges import Exchanges
 from trading_bot.MarketDataProvider import MarketDataProvider
 
 
-class BinanceMarketDataProvider(MarketDataProvider):
+class GeminiMarketDataProvider(MarketDataProvider):
 
     def __init__(self, tickers: tuple[str, ...]):
-        self._exchange = Exchanges.BINANCE
+        self._exchange = Exchanges.GEMINI
         super().__init__(tickers, self._exchange)
 
     def get_thread(self) -> threading.Thread:
@@ -19,18 +20,15 @@ class BinanceMarketDataProvider(MarketDataProvider):
 
     def _generate_url(self, tickers: tuple[str, ...], exchange: Exchanges) -> str:
         if len(tickers) == 1:
-            return exchange.value + f"/ws/{tickers[0].lower()}@kline_1m"
+            return exchange.value + tickers[0].upper()
         else:
-            stream_names = []
-            for ticker in tickers:
-                stream_names.append(f"{ticker.lower()}@kline_1m")
-            stream_names = "/".join(stream_names)
-            return exchange.value + f"/stream?streams={stream_names}"
+            pass
 
     def _on_message(self, ws, message):
         increment = json.loads(message)
-        candle = increment["k"]
-        price = candle["c"]
-        symbol = candle["s"]
+        event = increment["events"][0]
+        price = event["price"]
+        symbol = self.get_tickers()[0]
         print(f"{self._exchange.name}-{symbol} -> {price}")
+        time.sleep(0.5)
 
