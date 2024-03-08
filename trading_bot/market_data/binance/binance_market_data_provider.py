@@ -30,9 +30,9 @@ class BinanceMarketDataProvider(MarketDataProvider):
             price = candle["c"]
             symbol = candle["s"]
         else:
-            data = increment["data"]
-            timestamp = data["E"]
-            candle = data["k"]
+            increment = increment["data"]
+            timestamp = increment["E"]
+            candle = increment["k"]
             price = candle["c"]
             symbol = candle["s"]
 
