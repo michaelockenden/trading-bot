@@ -4,7 +4,11 @@ from trading_bot.trading.order_placement_manager import OrderPlacementManager
 
 class CryptoClient:
 
-    def __init__(self, order_placement_manager: OrderPlacementManager, market_data_provider: MarketDataProvider):
+    def __init__(
+        self,
+        order_placement_manager: OrderPlacementManager,
+        market_data_provider: MarketDataProvider,
+    ):
         self._market_data_provider = market_data_provider
         self._order_placement_manager = order_placement_manager
 

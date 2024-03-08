@@ -43,5 +43,6 @@ class BinanceMarketDataProvider(MarketDataProvider):
         time_to_handle = time.time() - (int(timestamp) / 1000)
         if time_to_handle > 0.5:
             print("Slow message")
-        print(f"{self._exchange.name}-{symbol} -> {price} || time to receive message: {time_to_handle}s")
-
+        print(
+            f"{self._exchange.name}-{symbol} -> {price} || time to receive message: {time_to_handle}s"
+        )

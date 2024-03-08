@@ -8,4 +8,3 @@ if __name__ == "__main__":
         thread = client.market_data_provider.thread
         if thread is not None:
             thread.join()
-

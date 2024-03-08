@@ -21,11 +21,13 @@ class WebsocketClient:
         print("Opened connection")
 
     def _init_socket(self, url) -> websocket.WebSocketApp:
-        return websocket.WebSocketApp(url=url,
-                                      on_open=self._on_open,
-                                      on_error=self._on_error,
-                                      on_close=self._on_close,
-                                      on_message=self._on_message)
+        return websocket.WebSocketApp(
+            url=url,
+            on_open=self._on_open,
+            on_error=self._on_error,
+            on_close=self._on_close,
+            on_message=self._on_message,
+        )
 
     def run(self):
         while True:
