@@ -44,5 +44,6 @@ class BinanceMarketDataProvider(MarketDataProvider):
         if time_to_handle > 0.5:
             print("Slow message")
         print(
-            f"{self._exchange.name}-{symbol} -> {price} || time to receive message: {time_to_handle}s"
+            f"{self._exchange.name}-{symbol} -> ${price.rstrip('0').rstrip('.')}"
+            f" || time to receive message: {time_to_handle:.3f}s"
         )

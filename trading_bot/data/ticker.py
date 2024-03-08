@@ -20,5 +20,5 @@ class Ticker:
         return self._symbol.upper()
 
     @property
-    def current_data(self):
+    def latest_market_data(self):
         return self._data[-1]
