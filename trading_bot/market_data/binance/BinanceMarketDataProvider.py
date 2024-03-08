@@ -34,4 +34,8 @@ class BinanceMarketDataProvider(MarketDataProvider):
             price = candle["c"]
             symbol = candle["s"]
 
+        for ticker in self.tickers:
+            if symbol == ticker.symbol_upper:
+                ticker.add_data(increment)
+
         print(f"{self._exchange.name}-{symbol} -> {price}")

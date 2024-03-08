@@ -8,6 +8,9 @@ class Ticker:
 
         self._data: deque[dict] = deque(maxlen=max_len)
 
+    def add_data(self, data_entry: dict):
+        self._data.append(data_entry)
+
     @property
     def symbol(self):
         return self._symbol.lower()
@@ -19,4 +22,3 @@ class Ticker:
     @property
     def current_data(self):
         return self._data[-1]
-
