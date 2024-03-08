@@ -31,4 +31,3 @@ class WebsocketClient:
         while True:
             self._ws.run_forever()
             time.sleep(5)
-

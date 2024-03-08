@@ -9,6 +9,7 @@ readme = "README.md"
 python = "^3.11"
 websocket-client = "^1.7.0"
 rel = "^0.4.9.8"
+pandas = "^2.2.1"
 
 [tool.poetry.group.dev.dependencies]
 black = "^24.2.0"

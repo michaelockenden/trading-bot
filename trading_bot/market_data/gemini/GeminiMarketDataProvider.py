@@ -3,24 +3,19 @@ import threading
 import time
 
 from trading_bot.data.enums.Exchanges import Exchanges
+from trading_bot.data.ticker import Ticker
 from trading_bot.market_data.MarketDataProvider import MarketDataProvider
 
 
 class GeminiMarketDataProvider(MarketDataProvider):
 
-    def __init__(self, tickers: tuple[str, ...]):
+    def __init__(self, tickers: list[Ticker]):
         self._exchange = Exchanges.GEMINI
         super().__init__(tickers, self._exchange)
 
-    def get_thread(self) -> threading.Thread:
-        return super().get_thread()
-
-    def get_tickers(self) -> tuple[str, ...]:
-        return super().get_tickers()
-
-    def _generate_url(self, tickers: tuple[str, ...], exchange: Exchanges) -> str:
+    def _generate_url(self, tickers: list[Ticker], exchange: Exchanges) -> str:
         if len(tickers) == 1:
-            return exchange.value + tickers[0].upper()
+            return exchange.value + tickers[0].symbol
         else:
             pass
 
@@ -28,7 +23,6 @@ class GeminiMarketDataProvider(MarketDataProvider):
         increment = json.loads(message)
         event = increment["events"][0]
         price = event["price"]
-        symbol = self.get_tickers()[0]
+        symbol = self.tickers[0].symbol_upper
         print(f"{self._exchange.name}-{symbol} -> {price}")
         time.sleep(0.5)
-

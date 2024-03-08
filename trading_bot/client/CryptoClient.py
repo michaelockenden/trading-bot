@@ -8,8 +8,10 @@ class CryptoClient:
         self._market_data_provider = market_data_provider
         self._order_placement_manager = order_placement_manager
 
-    def get_market_data_provider(self) -> MarketDataProvider:
+    @property
+    def market_data_provider(self):
         return self._market_data_provider
 
-    def get_order_placement_manager(self) -> OrderPlacementManager:
+    @property
+    def order_placement_manager(self):
         return self._order_placement_manager

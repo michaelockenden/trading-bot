@@ -7,7 +7,7 @@ if __name__ == "__main__":
     clients = [b_client, g_client]
 
     for client in clients:
-        thread = client.get_market_data_provider().get_thread()
+        thread = client.market_data_provider.thread
         if thread is not None:
             thread.join()
 
