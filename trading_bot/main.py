@@ -1,10 +1,8 @@
-from trading_bot.client.binance.BinanceClient import BinanceClient
-from trading_bot.client.gemini.GeminiClient import GeminiClient
+from trading_bot.client.binance.binance_client import BinanceClient
 
 if __name__ == "__main__":
     b_client = BinanceClient()
-    g_client = GeminiClient()
-    clients = [b_client, g_client]
+    clients = [b_client]
 
     for client in clients:
         thread = client.market_data_provider.thread
