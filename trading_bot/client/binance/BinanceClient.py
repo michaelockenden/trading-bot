@@ -6,7 +6,7 @@ from trading_bot.trading.OrderPlacementManager import OrderPlacementManager
 class BinanceClient(CryptoClient):
 
     def __init__(self):
-        tickers = ("btcusdt",)
+        tickers = ("btcusdt", "ethusdt", "solusdt")
         super().__init__(OrderPlacementManager(), BinanceMarketDataProvider(tickers))
 
     def get_market_data_provider(self) -> BinanceMarketDataProvider:
