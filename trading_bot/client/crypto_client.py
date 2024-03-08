@@ -1,5 +1,5 @@
-from trading_bot.trading import OrderPlacementManager
-from trading_bot.market_data import MarketDataProvider
+from trading_bot.market_data.market_data_provider import MarketDataProvider
+from trading_bot.trading.order_placement_manager import OrderPlacementManager
 
 
 class CryptoClient:

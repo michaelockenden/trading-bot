@@ -1,9 +1,9 @@
 import json
-import threading
+import time
 
-from trading_bot.data.enums.Exchanges import Exchanges
+from trading_bot.data.enums.exchanges import Exchanges
 from trading_bot.data.ticker import Ticker
-from trading_bot.market_data.MarketDataProvider import MarketDataProvider
+from trading_bot.market_data.market_data_provider import MarketDataProvider
 
 
 class BinanceMarketDataProvider(MarketDataProvider):
@@ -25,11 +25,13 @@ class BinanceMarketDataProvider(MarketDataProvider):
     def _on_message(self, ws, message):
         increment = json.loads(message)
         if len(self.tickers) == 1:
+            timestamp = increment["E"]
             candle = increment["k"]
             price = candle["c"]
             symbol = candle["s"]
         else:
             data = increment["data"]
+            timestamp = data["E"]
             candle = data["k"]
             price = candle["c"]
             symbol = candle["s"]
@@ -38,4 +40,8 @@ class BinanceMarketDataProvider(MarketDataProvider):
             if symbol == ticker.symbol_upper:
                 ticker.add_data(increment)
 
-        print(f"{self._exchange.name}-{symbol} -> {price}")
+        time_to_handle = time.time() - (int(timestamp) / 1000)
+        if time_to_handle > 0.5:
+            print("Slow message")
+        print(f"{self._exchange.name}-{symbol} -> {price} || time to receive message: {time_to_handle}s")
+

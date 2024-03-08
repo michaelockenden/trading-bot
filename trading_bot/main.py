@@ -1,5 +1,4 @@
-from trading_bot.client.binance.BinanceClient import BinanceClient
-from trading_bot.client.gemini.GeminiClient import GeminiClient
+from trading_bot.client.binance.binance_client import BinanceClient
 
 if __name__ == "__main__":
     b_client = BinanceClient()
