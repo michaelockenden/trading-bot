@@ -24,7 +24,7 @@ class BinanceMarketDataProvider(MarketDataProvider):
 
     def _on_message(self, ws, message):
         increment = json.loads(message)
-        if len(self.get_tickers()) == 1:
+        if len(self.tickers) == 1:
             candle = increment["k"]
             price = candle["c"]
             symbol = candle["s"]
