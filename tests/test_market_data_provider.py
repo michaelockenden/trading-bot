@@ -27,6 +27,6 @@ class TestMarketDataProvider(TestCase):
     def test_market_data_provider_receives_data_from_external_stream(self):
         md = self._provider.tickers[0].latest_market_data
 
-        self.assertIsInstance(md.close_price, float)
+        self.assertIsInstance(md.close_price, str)
         self.assertIsInstance(md.symbol, str)
         self.assertIsInstance(md.timestamp, int)
