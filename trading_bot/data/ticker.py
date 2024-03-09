@@ -7,7 +7,6 @@ class Ticker:
 
     def __init__(self, symbol: str, max_len: int = 1000):
         self._symbol = symbol
-
         self._data: deque[MarketData] = deque(maxlen=max_len)
 
     def add_data(self, data_entry: MarketData):
@@ -22,5 +21,5 @@ class Ticker:
         return self._symbol.upper()
 
     @property
-    def current_data(self):
+    def latest_market_data(self):
         return self._data[-1]
