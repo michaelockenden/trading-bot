@@ -1,13 +1,14 @@
-import json
 import time
 
 from trading_bot.data.enums.exchange import Exchange
 from trading_bot.data.enums.interval import Interval
 from trading_bot.data.enums.time_units import TimeUnits
+from trading_bot.data.models.market_data import (
+    BinanceMarketData,
+)
 from trading_bot.data.models.ticker import Ticker
 from trading_bot.market_data.market_data_provider import MarketDataProvider
 from trading_bot.utils.logging import TradingBotLogger
-from trading_bot.utils.num_utils import remove_trailing_zeroes
 
 
 class BinanceMarketDataProvider(MarketDataProvider):
@@ -31,29 +32,18 @@ class BinanceMarketDataProvider(MarketDataProvider):
 
     def _on_message(self, ws, message):
         received_time = time.time()
-        increment = json.loads(message)
-        if len(self.tickers) == 1:
-            timestamp = increment["E"]
-            candle = increment["k"]
-            price = candle["c"]
-            symbol = candle["s"]
-        else:
-            increment = increment["data"]
-            timestamp = increment["E"]
-            candle = increment["k"]
-            price = candle["c"]
-            symbol = candle["s"]
+        market_data = BinanceMarketData.model_validate_json(message)
 
         for ticker in self.tickers:
-            if symbol == ticker.symbol_upper:
-                ticker.add_data(increment)
+            if market_data.symbol == ticker.symbol_upper:
+                ticker.add_data(market_data)
 
         time_to_receive = received_time - (
-            int(timestamp) / TimeUnits.MILLIS_PER_SECOND.value
+            market_data.timestamp / TimeUnits.MILLIS_PER_SECOND.value
         )
         if time_to_receive > 0.5:
             self._logger.warning("Slow message")
         self._logger.info(
-            f"{self._exchange.name}-{symbol} -> ${remove_trailing_zeroes(price)}"
+            f"{self._exchange.name}-{market_data.symbol} -> ${market_data.close_price}"
             f" || time to receive message: {time_to_receive:.3f}s"
         )

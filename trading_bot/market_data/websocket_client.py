@@ -10,6 +10,7 @@ class WebsocketClient:
     def __init__(self, url: str):
         self._ws = self._init_socket(url)
         self._stopped = True
+        self._connected = False
         self._logger = TradingBotLogger("WebsocketClient").get_logger()
 
     @property
@@ -24,6 +25,14 @@ class WebsocketClient:
     def stopped(self, value):
         self._stopped = value
 
+    def wait_for_connection(self, timeout: int):
+        count = 0
+        while not self._connected and count < timeout:
+            time.sleep(1)
+            count += 1
+        if not self._connected:
+            raise ConnectionError("Connection timed out")
+
     def _on_message(self, ws, message):
         self._logger.info(message)
 
@@ -31,9 +40,11 @@ class WebsocketClient:
         self._logger.error(error)
 
     def _on_close(self, ws, close_status_code, close_msg):
+        self._connected = False
         self._logger.info("### closed ###")
 
     def _on_open(self, ws):
+        self._connected = True
         self._logger.info("Opened connection")
 
     def _init_socket(self, url) -> websocket.WebSocketApp:
