@@ -9,6 +9,7 @@ from trading_bot.data.models.market_data import MarketData
 from trading_bot.data.models.ticker import Ticker
 from trading_bot.market_data.websocket_client import WebsocketClient
 from trading_bot.utils.logging import TradingBotLogger
+from trading_bot.utils.num_utils import remove_trailing_zeroes
 
 
 class MarketDataProvider(WebsocketClient):
@@ -46,7 +47,7 @@ class MarketDataProvider(WebsocketClient):
         if time_to_receive > 0.5:
             self._logger.warning("Slow message")
         self._logger.info(
-            f"{self._exchange.name}-{market_data.symbol} -> ${market_data.close_price}"
+            f"{self._exchange.name}-{market_data.symbol} -> ${remove_trailing_zeroes(market_data.close_price)}"
             f" || time to receive message: {time_to_receive:.3f}s"
         )
 
