@@ -10,7 +10,7 @@ class WebsocketClient:
     def __init__(self, url: str):
         self._ws = self._init_socket(url)
         self._stopped = True
-        self._logger = TradingBotLogger(self.__class__.__name__).get_logger()
+        self._logger = TradingBotLogger("WebsocketClient").get_logger()
 
     @property
     def ws(self):

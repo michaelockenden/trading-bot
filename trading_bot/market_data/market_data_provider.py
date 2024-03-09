@@ -13,7 +13,7 @@ class MarketDataProvider(WebsocketClient):
         super().__init__(self._generate_url(tickers, exchange, interval))
         self._tickers = tickers
         self._thread = threading.Thread(target=super().run).start()
-        self._logger = TradingBotLogger(self.__class__.__name__).get_logger()
+        self._logger = TradingBotLogger("MarketDataProvider").get_logger()
 
     def _generate_url(
         self, tickers: list[Ticker], exchange: Exchange, interval: Interval

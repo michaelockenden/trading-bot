@@ -15,7 +15,7 @@ class BinanceMarketDataProvider(MarketDataProvider):
     def __init__(self, tickers: list[Ticker], interval: Interval):
         self._exchange = Exchange.BINANCE
         super().__init__(tickers, self._exchange, interval)
-        self._logger = TradingBotLogger(self.__class__.__name__).get_logger()
+        self._logger = TradingBotLogger("BinanceMarketDataProvider").get_logger()
 
     def _generate_url(
         self, tickers: list[Ticker], exchange: Exchange, interval: Interval
