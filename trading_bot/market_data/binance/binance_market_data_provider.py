@@ -1,7 +1,7 @@
 import json
 import time
 
-from trading_bot.data.enums.exchanges import Exchanges
+from trading_bot.data.enums.exchange import Exchange
 from trading_bot.data.enums.interval import Interval
 from trading_bot.data.enums.time_units import TimeUnits
 from trading_bot.data.ticker import Ticker
@@ -12,11 +12,11 @@ from trading_bot.utils.num_utils import remove_trailing_zeroes
 class BinanceMarketDataProvider(MarketDataProvider):
 
     def __init__(self, tickers: list[Ticker], interval: Interval):
-        self._exchange = Exchanges.BINANCE
+        self._exchange = Exchange.BINANCE
         super().__init__(tickers, self._exchange, interval)
 
     def _generate_url(
-        self, tickers: list[Ticker], exchange: Exchanges, interval: Interval
+        self, tickers: list[Ticker], exchange: Exchange, interval: Interval
     ) -> str:
         if len(tickers) == 1:
             return exchange.value + f"/ws/{tickers[0].symbol}@kline_{interval.value}"

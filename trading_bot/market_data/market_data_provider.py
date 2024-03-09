@@ -1,6 +1,6 @@
 import threading
 
-from trading_bot.data.enums.exchanges import Exchanges
+from trading_bot.data.enums.exchange import Exchange
 from trading_bot.data.enums.interval import Interval
 from trading_bot.data.ticker import Ticker
 from trading_bot.market_data.websocket_client import WebsocketClient
@@ -8,13 +8,13 @@ from trading_bot.market_data.websocket_client import WebsocketClient
 
 class MarketDataProvider(WebsocketClient):
 
-    def __init__(self, tickers: list[Ticker], exchange: Exchanges, interval: Interval):
+    def __init__(self, tickers: list[Ticker], exchange: Exchange, interval: Interval):
         super().__init__(self._generate_url(tickers, exchange, interval))
         self._tickers = tickers
         self._thread = threading.Thread(target=super().run).start()
 
     def _generate_url(
-        self, tickers: list[Ticker], exchange: Exchanges, interval: Interval
+        self, tickers: list[Ticker], exchange: Exchange, interval: Interval
     ) -> str:
         pass
 
