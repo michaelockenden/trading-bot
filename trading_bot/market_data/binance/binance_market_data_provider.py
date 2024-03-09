@@ -2,6 +2,7 @@ import json
 import time
 
 from trading_bot.data.enums.exchanges import Exchanges
+from trading_bot.data.market_data import MarketData
 from trading_bot.data.ticker import Ticker
 from trading_bot.market_data.market_data_provider import MarketDataProvider
 
@@ -36,9 +37,11 @@ class BinanceMarketDataProvider(MarketDataProvider):
             price = candle["c"]
             symbol = candle["s"]
 
+        market_data = MarketData(timestamp, price, price)
+
         for ticker in self.tickers:
             if symbol == ticker.symbol_upper:
-                ticker.add_data(increment)
+                ticker.add_data(market_data)
 
         time_to_handle = time.time() - (int(timestamp) / 1000)
         if time_to_handle > 0.5:
