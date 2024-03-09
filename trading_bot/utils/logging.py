@@ -10,6 +10,7 @@ class TradingBotLogger:
         self.logger.setLevel(logging.DEBUG)
 
         log_dir = project_root() / "logs"
+        os.makedirs(log_dir, exist_ok=True)
 
         log_file = log_dir / f"{name}.log"
         file_handler = logging.FileHandler(log_file)
