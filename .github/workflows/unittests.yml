@@ -14,7 +14,7 @@ jobs:
           python-version: 3.11
       - name: Install Dependencies
         run: |
-          pip install -r requirements.txt  # Install any dependencies required for your tests
+          pip install -r requirements.txt
       - name: Run Unit Tests
         run: |
           python -m unittest discover -s tests/ -p 'test_*.py'
