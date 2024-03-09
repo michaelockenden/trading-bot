@@ -1,8 +1,8 @@
 import time
 
-from trading_bot.client.binance.binance_client import BinanceClient
+from trading_bot.client.binance_client import BinanceClient
 from trading_bot.data.enums.interval import Interval
-from trading_bot.data.ticker import Ticker
+from trading_bot.data.models.ticker import Ticker
 
 if __name__ == "__main__":
     tickers = [Ticker("BTCUSDT"), Ticker("ETHUSDT"), Ticker("SOLUSDT")]

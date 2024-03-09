@@ -4,7 +4,7 @@ import time
 from trading_bot.data.enums.exchange import Exchange
 from trading_bot.data.enums.interval import Interval
 from trading_bot.data.enums.time_units import TimeUnits
-from trading_bot.data.ticker import Ticker
+from trading_bot.data.models.ticker import Ticker
 from trading_bot.market_data.market_data_provider import MarketDataProvider
 from trading_bot.utils.num_utils import remove_trailing_zeroes
 

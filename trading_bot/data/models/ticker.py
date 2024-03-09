@@ -1,6 +1,6 @@
 from collections import deque
 
-from trading_bot.data.market_data import MarketData
+from trading_bot.data.models.market_data import MarketData
 
 
 class Ticker:

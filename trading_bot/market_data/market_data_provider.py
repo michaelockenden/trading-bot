@@ -2,7 +2,7 @@ import threading
 
 from trading_bot.data.enums.exchange import Exchange
 from trading_bot.data.enums.interval import Interval
-from trading_bot.data.ticker import Ticker
+from trading_bot.data.models.ticker import Ticker
 from trading_bot.market_data.websocket_client import WebsocketClient
 
 

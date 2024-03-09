@@ -1,6 +1,6 @@
 from trading_bot.data.enums.interval import Interval
-from trading_bot.data.ticker import Ticker
-from trading_bot.market_data.binance.binance_market_data_provider import (
+from trading_bot.data.models.ticker import Ticker
+from trading_bot.market_data.binance_market_data_provider import (
     BinanceMarketDataProvider,
 )
 from trading_bot.client.crypto_client import CryptoClient
