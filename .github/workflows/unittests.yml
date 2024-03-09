@@ -6,15 +6,22 @@ jobs:
   test:
     runs-on: ubuntu-latest
     name: Run Unit Tests
+    container:
+      image: ubuntu-latest
+      options: --region europe
     steps:
       - uses: actions/checkout@v1
       - name: Set up Python 3.11
         uses: actions/setup-python@v2
         with:
           python-version: 3.11
+      - name: Install Poetry
+        run: |
+          curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python -
+          source $HOME/.poetry/env
       - name: Install Dependencies
         run: |
-          pip install -r requirements.txt
+          poetry install
       - name: Run Unit Tests
         run: |
-          python -m unittest discover -s tests/ -p 'test_*.py'
+          poetry run python -m unittest discover -s tests/ -p 'test_*.py'
