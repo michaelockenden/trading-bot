@@ -8,7 +8,5 @@ from trading_bot.trading.order_placement_manager import OrderPlacementManager
 
 class BinanceClient(CryptoClient):
 
-    def __init__(self):
-        tickers = [Ticker("BTCUSDT"), Ticker("ETHUSDT"), Ticker("SOLUSDT")]
-
+    def __init__(self, tickers: list[Ticker]):
         super().__init__(OrderPlacementManager(), BinanceMarketDataProvider(tickers))
