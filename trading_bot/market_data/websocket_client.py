@@ -2,12 +2,15 @@ import time
 
 import websocket
 
+from trading_bot.utils.logging import TradingBotLogger
+
 
 class WebsocketClient:
 
     def __init__(self, url: str):
         self._ws = self._init_socket(url)
         self._stopped = True
+        self._logger = TradingBotLogger(self.__class__.__name__).get_logger()
 
     @property
     def ws(self):
@@ -22,16 +25,16 @@ class WebsocketClient:
         self._stopped = value
 
     def _on_message(self, ws, message):
-        print(message)
+        self._logger.info(message)
 
     def _on_error(self, ws, error):
-        print(error)
+        self._logger.error(error)
 
     def _on_close(self, ws, close_status_code, close_msg):
-        print("### closed ###")
+        self._logger.info("### closed ###")
 
     def _on_open(self, ws):
-        print("Opened connection")
+        self._logger.info("Opened connection")
 
     def _init_socket(self, url) -> websocket.WebSocketApp:
         return websocket.WebSocketApp(

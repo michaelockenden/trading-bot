@@ -6,6 +6,7 @@ from trading_bot.data.enums.interval import Interval
 from trading_bot.data.enums.time_units import TimeUnits
 from trading_bot.data.models.ticker import Ticker
 from trading_bot.market_data.market_data_provider import MarketDataProvider
+from trading_bot.utils.logging import TradingBotLogger
 from trading_bot.utils.num_utils import remove_trailing_zeroes
 
 
@@ -14,6 +15,7 @@ class BinanceMarketDataProvider(MarketDataProvider):
     def __init__(self, tickers: list[Ticker], interval: Interval):
         self._exchange = Exchange.BINANCE
         super().__init__(tickers, self._exchange, interval)
+        self._logger = TradingBotLogger(self.__class__.__name__).get_logger()
 
     def _generate_url(
         self, tickers: list[Ticker], exchange: Exchange, interval: Interval
@@ -50,8 +52,8 @@ class BinanceMarketDataProvider(MarketDataProvider):
             int(timestamp) / TimeUnits.MILLIS_PER_SECOND.value
         )
         if time_to_receive > 0.5:
-            print("Slow message")
-        print(
+            self._logger.warning("Slow message")
+        self._logger.info(
             f"{self._exchange.name}-{symbol} -> ${remove_trailing_zeroes(price)}"
             f" || time to receive message: {time_to_receive:.3f}s"
         )
