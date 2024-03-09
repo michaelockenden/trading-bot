@@ -2,23 +2,26 @@ import json
 import time
 
 from trading_bot.data.enums.exchanges import Exchanges
+from trading_bot.data.enums.intervals import Intervals
 from trading_bot.data.ticker import Ticker
 from trading_bot.market_data.market_data_provider import MarketDataProvider
 
 
 class BinanceMarketDataProvider(MarketDataProvider):
 
-    def __init__(self, tickers: list[Ticker]):
+    def __init__(self, tickers: list[Ticker], interval: Intervals):
         self._exchange = Exchanges.BINANCE
-        super().__init__(tickers, self._exchange)
+        super().__init__(tickers, self._exchange, interval)
 
-    def _generate_url(self, tickers: list[Ticker], exchange: Exchanges) -> str:
+    def _generate_url(
+        self, tickers: list[Ticker], exchange: Exchanges, interval: Intervals
+    ) -> str:
         if len(tickers) == 1:
-            return exchange.value + f"/ws/{tickers[0].symbol}@kline_1m"
+            return exchange.value + f"/ws/{tickers[0].symbol}@kline_{interval.value}"
         else:
             stream_names = []
             for ticker in tickers:
-                stream_names.append(f"{ticker.symbol}@kline_1m")
+                stream_names.append(f"{ticker.symbol}@kline_{interval.value}")
             stream_names = "/".join(stream_names)
             return exchange.value + f"/stream?streams={stream_names}"
 
