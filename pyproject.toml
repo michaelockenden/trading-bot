@@ -11,6 +11,8 @@ websocket-client = "^1.7.0"
 rel = "^0.4.9.8"
 pandas = "^2.2.1"
 pydantic = "^2.6.3"
+requests = "^2.31.0"
+environs = "^11.0.0"
 
 [tool.poetry.group.dev.dependencies]
 black = "^24.2.0"
