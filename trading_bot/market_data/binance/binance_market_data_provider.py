@@ -2,19 +2,19 @@ import json
 import time
 
 from trading_bot.data.enums.exchanges import Exchanges
-from trading_bot.data.enums.intervals import Intervals
+from trading_bot.data.enums.interval import Interval
 from trading_bot.data.ticker import Ticker
 from trading_bot.market_data.market_data_provider import MarketDataProvider
 
 
 class BinanceMarketDataProvider(MarketDataProvider):
 
-    def __init__(self, tickers: list[Ticker], interval: Intervals):
+    def __init__(self, tickers: list[Ticker], interval: Interval):
         self._exchange = Exchanges.BINANCE
         super().__init__(tickers, self._exchange, interval)
 
     def _generate_url(
-        self, tickers: list[Ticker], exchange: Exchanges, interval: Intervals
+        self, tickers: list[Ticker], exchange: Exchanges, interval: Interval
     ) -> str:
         if len(tickers) == 1:
             return exchange.value + f"/ws/{tickers[0].symbol}@kline_{interval.value}"

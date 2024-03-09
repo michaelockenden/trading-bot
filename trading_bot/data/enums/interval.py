@@ -1,7 +1,7 @@
 from enum import Enum
 
 
-class Intervals(Enum):
+class Interval(Enum):
     ONE_MINUTE = "1m"
     FIVE_MINUTES = "5m"
     ONE_HOUR = "1h"

@@ -2,6 +2,8 @@ from datetime import datetime
 
 from pydantic import BaseModel, Field, AliasPath
 
+from trading_bot.data.enums.interval import Interval
+
 
 class MarketData(BaseModel):
     symbol: str
@@ -9,7 +11,7 @@ class MarketData(BaseModel):
     close_price: float
     quote_volume: float
     candle_close: bool
-    interval: str  # TODO: change to enum
+    interval: Interval
 
 
 class BinanceMarketData(MarketData):
@@ -18,7 +20,7 @@ class BinanceMarketData(MarketData):
     close_price: float = Field(validation_alias=AliasPath("k", "c"))
     quote_volume: float = Field(validation_alias=AliasPath("k", "q"))
     candle_close: bool = Field(validation_alias=AliasPath("k", "x"))
-    interval: str = Field(validation_alias=AliasPath("k", "i"))
+    interval: Interval = Field(validation_alias=AliasPath("k", "i"))
 
 
 class BinanceNestedMarketData(MarketData):
@@ -27,4 +29,4 @@ class BinanceNestedMarketData(MarketData):
     close_price: float = Field(validation_alias=AliasPath("data", "k", "c"))
     quote_volume: float = Field(validation_alias=AliasPath("data", "k", "q"))
     candle_close: bool = Field(validation_alias=AliasPath("data", "k", "x"))
-    interval: str = Field(validation_alias=AliasPath("data", "k", "i"))
+    interval: Interval = Field(validation_alias=AliasPath("data", "k", "i"))
