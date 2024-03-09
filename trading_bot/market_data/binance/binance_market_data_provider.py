@@ -3,8 +3,10 @@ import time
 
 from trading_bot.data.enums.exchanges import Exchanges
 from trading_bot.data.enums.interval import Interval
+from trading_bot.data.enums.time_units import TimeUnits
 from trading_bot.data.ticker import Ticker
 from trading_bot.market_data.market_data_provider import MarketDataProvider
+from trading_bot.utils.num_utils import remove_trailing_zeroes
 
 
 class BinanceMarketDataProvider(MarketDataProvider):
@@ -44,10 +46,12 @@ class BinanceMarketDataProvider(MarketDataProvider):
             if symbol == ticker.symbol_upper:
                 ticker.add_data(increment)
 
-        time_to_receive = received_time - (int(timestamp) / 1000)
+        time_to_receive = received_time - (
+            int(timestamp) / TimeUnits.MILLIS_PER_SECOND.value
+        )
         if time_to_receive > 0.5:
             print("Slow message")
         print(
-            f"{self._exchange.name}-{symbol} -> ${price.rstrip('0').rstrip('.')}"
+            f"{self._exchange.name}-{symbol} -> ${remove_trailing_zeroes(price)}"
             f" || time to receive message: {time_to_receive:.3f}s"
         )
