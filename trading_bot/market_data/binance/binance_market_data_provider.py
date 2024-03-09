@@ -23,6 +23,7 @@ class BinanceMarketDataProvider(MarketDataProvider):
             return exchange.value + f"/stream?streams={stream_names}"
 
     def _on_message(self, ws, message):
+        received_time = time.time()
         increment = json.loads(message)
         if len(self.tickers) == 1:
             timestamp = increment["E"]
@@ -40,10 +41,10 @@ class BinanceMarketDataProvider(MarketDataProvider):
             if symbol == ticker.symbol_upper:
                 ticker.add_data(increment)
 
-        time_to_handle = time.time() - (int(timestamp) / 1000)
-        if time_to_handle > 0.5:
+        time_to_receive = received_time - (int(timestamp) / 1000)
+        if time_to_receive > 0.5:
             print("Slow message")
         print(
             f"{self._exchange.name}-{symbol} -> ${price.rstrip('0').rstrip('.')}"
-            f" || time to receive message: {time_to_handle:.3f}s"
+            f" || time to receive message: {time_to_receive:.3f}s"
         )

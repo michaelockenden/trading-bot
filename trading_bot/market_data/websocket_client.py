@@ -7,6 +7,19 @@ class WebsocketClient:
 
     def __init__(self, url: str):
         self._ws = self._init_socket(url)
+        self._stopped = True
+
+    @property
+    def ws(self):
+        return self._ws
+
+    @property
+    def stopped(self):
+        return self._stopped
+
+    @stopped.setter
+    def stopped(self, value):
+        self._stopped = value
 
     def _on_message(self, ws, message):
         print(message)
@@ -30,6 +43,7 @@ class WebsocketClient:
         )
 
     def run(self):
-        while True:
+        self._stopped = False
+        while not self._stopped:
             self._ws.run_forever()
             time.sleep(5)

@@ -18,6 +18,10 @@ class MarketDataProvider(WebsocketClient):
     def _on_message(self, ws, message):
         print(f"{message=}")
 
+    def stop(self):
+        self.stopped = True
+        self.ws.close()
+
     @property
     def tickers(self):
         return self._tickers
