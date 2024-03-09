@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from pydantic import BaseModel, Field, AliasPath
+from pydantic import BaseModel, Field, AliasPath, AliasChoices
 
 from trading_bot.data.enums.interval import Interval
 
@@ -15,18 +15,19 @@ class MarketData(BaseModel):
 
 
 class BinanceMarketData(MarketData):
-    symbol: str = Field(validation_alias="s")
-    timestamp: datetime = Field(validation_alias="E")
-    close_price: float = Field(validation_alias=AliasPath("k", "c"))
-    quote_volume: float = Field(validation_alias=AliasPath("k", "q"))
-    candle_close: bool = Field(validation_alias=AliasPath("k", "x"))
-    interval: Interval = Field(validation_alias=AliasPath("k", "i"))
-
-
-class BinanceNestedMarketData(MarketData):
-    symbol: str = Field(validation_alias=AliasPath("data", "s"))
-    timestamp: datetime = Field(validation_alias=AliasPath("data", "E"))
-    close_price: float = Field(validation_alias=AliasPath("data", "k", "c"))
-    quote_volume: float = Field(validation_alias=AliasPath("data", "k", "q"))
-    candle_close: bool = Field(validation_alias=AliasPath("data", "k", "x"))
-    interval: Interval = Field(validation_alias=AliasPath("data", "k", "i"))
+    symbol: str = Field(validation_alias=AliasChoices("s", AliasPath("data", "s")))
+    timestamp: datetime = Field(
+        validation_alias=AliasChoices("E", AliasPath("data", "E"))
+    )
+    close_price: float = Field(
+        validation_alias=AliasChoices(AliasPath("k", "c"), AliasPath("data", "k", "c"))
+    )
+    quote_volume: float = Field(
+        validation_alias=AliasChoices(AliasPath("k", "q"), AliasPath("data", "k", "q"))
+    )
+    candle_close: bool = Field(
+        validation_alias=AliasChoices(AliasPath("k", "x"), AliasPath("data", "k", "x"))
+    )
+    interval: Interval = Field(
+        validation_alias=AliasChoices(AliasPath("k", "i"), AliasPath("data", "k", "i"))
+    )
