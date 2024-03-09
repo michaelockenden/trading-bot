@@ -6,8 +6,8 @@ from trading_bot.data.enums.interval import Interval
 class MarketData(BaseModel):
     symbol: str
     timestamp: int
-    close_price: float
-    quote_volume: float
+    close_price: str
+    quote_volume: str
     candle_close: bool
     interval: Interval
 
@@ -15,10 +15,10 @@ class MarketData(BaseModel):
 class BinanceMarketData(MarketData):
     symbol: str = Field(validation_alias=AliasChoices("s", AliasPath("data", "s")))
     timestamp: int = Field(validation_alias=AliasChoices("E", AliasPath("data", "E")))
-    close_price: float = Field(
+    close_price: str = Field(
         validation_alias=AliasChoices(AliasPath("k", "c"), AliasPath("data", "k", "c"))
     )
-    quote_volume: float = Field(
+    quote_volume: str = Field(
         validation_alias=AliasChoices(AliasPath("k", "q"), AliasPath("data", "k", "q"))
     )
     candle_close: bool = Field(
