@@ -1,4 +1,4 @@
-from unittest import TestCase
+from unittest import TestCase, skip
 
 from trading_bot.data.enums.interval import Interval
 from trading_bot.data.models.ticker import Ticker
@@ -25,6 +25,7 @@ class TestMarketDataProvider(TestCase):
     def tearDown(self):
         self._provider.stop()
 
+@skip("API Test Skipped")
     def test_market_data_provider_receives_data_from_external_stream(self):
         md = self._provider.get_ticker(self._symbol).latest_market_data
 
