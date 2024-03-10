@@ -1,17 +1,14 @@
 from trading_bot.account.exchange_account import ExchangeAccount
-from trading_bot.data.enums.interval import Interval
-from trading_bot.client.binance_client import BinanceClient
+from trading_bot.data.enums.exchange import Exchange
 
 
 class BinanceExchangeAccount(ExchangeAccount):
-    BASE_URL = "https://api.binance.com"
 
-    def __init__(self, api_key, api_secret):
-        super().__init__(api_key, api_secret, "Binance", self.BASE_URL)
+    def __init__(self, api_key: str, api_secret: str):
+        super().__init__(api_key, api_secret, Exchange.BINANCE)
 
     def get_balance(self):
-        endpoint = "/api/v3/account"
-        account_info = self.api.send_signed_request("GET", endpoint)
+        account_info = super().get_account_info()
 
         balances = {}
         for asset in account_info["balances"]:
@@ -40,5 +37,5 @@ if __name__ == "__main__":
     API_SECRET = ""
 
     binance_account = BinanceExchangeAccount(API_KEY, API_SECRET)
-    balance = binance_account.get_account_value_usd()
-    print(balance)
+    usd_balance = binance_account.get_account_value_usd()
+    print(usd_balance)
