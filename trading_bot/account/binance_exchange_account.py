@@ -52,9 +52,3 @@ class BinanceExchangeAccount(ExchangeAccount):
 
         return total_value
 
-
-if __name__ == "__main__":
-    API_KEY = ""
-    API_SECRET = ""
-    binance_account = BinanceExchangeAccount(API_KEY, API_SECRET)
-    print(binance_account.get_account_value_usd())
