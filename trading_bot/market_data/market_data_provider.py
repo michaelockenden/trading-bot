@@ -36,10 +36,7 @@ class MarketDataProvider(WebsocketClient):
     def _on_message(self, ws, message):
         received_time = time.time()
         market_data = self._market_data_model.model_validate_json(message)
-
-        for ticker in self.tickers:
-            if market_data.symbol.upper() == ticker.symbol_upper:
-                ticker.add_data(market_data)
+        self.get_ticker(market_data.symbol).add_data(market_data)
 
         time_to_receive = received_time - (
             market_data.timestamp / TimeUnits.MILLIS_PER_SECOND.value
@@ -54,6 +51,12 @@ class MarketDataProvider(WebsocketClient):
     def stop(self):
         self.stopped = True
         self.ws.close()
+
+    def get_ticker(self, symbol: str) -> Ticker | None:
+        for ticker in self._tickers:
+            if ticker.symbol == symbol.lower():
+                return ticker
+        return None
 
     @property
     def tickers(self):

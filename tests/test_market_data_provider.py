@@ -13,19 +13,20 @@ class TestMarketDataProvider(TestCase):
     def __init__(self, methodName="runTest"):
         super().__init__(methodName)
         self._provider: MarketDataProvider
+        self._symbol = "BTCUSDT"
 
     def setUp(self):
         self._provider = BinanceMarketDataProvider(
-            [Ticker("BTCUSDT")], Interval.ONE_MINUTE
+            [Ticker(self._symbol)], Interval.ONE_MINUTE
         )
         self._provider.wait_for_connection(30)
-        self._provider.tickers[0].wait_for_data(30)
+        self._provider.get_ticker(self._symbol).wait_for_data(30)
 
     def tearDown(self):
         self._provider.stop()
 
     def test_market_data_provider_receives_data_from_external_stream(self):
-        md = self._provider.tickers[0].latest_market_data
+        md = self._provider.get_ticker(self._symbol).latest_market_data
 
         self.assertIsInstance(md.close_price, str)
         self.assertIsInstance(md.symbol, str)
