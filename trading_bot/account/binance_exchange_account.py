@@ -50,5 +50,6 @@ class BinanceExchangeAccount(ExchangeAccount):
         if 'USDT' in balances:
             total_value += balances['USDT']
 
-        return total_value
+        self.market_data_provider.stop()
+        return f"${total_value:.2f}"
 
