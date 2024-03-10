@@ -3,6 +3,6 @@ from enum import Enum
 
 class Exchange(Enum):
     BINANCE = {
-        "websocket": "wss://stream.binance.com:9443",
-        "http": "https://api.binance.com",
+        "websocket": "wss://stream.binance.us:9443",
+        "http": "https://api.binance.us",
     }
