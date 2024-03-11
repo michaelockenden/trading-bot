@@ -1,3 +1,5 @@
+from typing import List
+
 from trading_bot.account.exchange_account import ExchangeAccount, ExchangeAPI
 from trading_bot.data.enums.exchange import Exchange
 
@@ -39,7 +41,7 @@ class BinanceExchangeAccount(ExchangeAccount):
             )
             total_value += balance * price_usd
 
-        if "USDT" in list(map(lambda x: x.upper(), balances.keys())):
+        if "USDT" in [x.upper() for x in balances.keys()]:
             total_value += balances["USDT"]
 
         return total_value

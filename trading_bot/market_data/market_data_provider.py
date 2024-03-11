@@ -1,6 +1,6 @@
 import threading
 import time
-from typing import Type
+from typing import Type, List
 
 from trading_bot.data.enums.exchange import Exchange
 from trading_bot.data.enums.interval import Interval
@@ -16,7 +16,7 @@ class MarketDataProvider(WebsocketClient):
 
     def __init__(
         self,
-        tickers: list[Ticker],
+        tickers: List[Ticker],
         exchange: Exchange,
         interval: Interval,
         market_data_model: Type[MarketData],
@@ -29,7 +29,7 @@ class MarketDataProvider(WebsocketClient):
         self._logger = TradingBotLogger("MarketDataProvider").get_logger()
 
     def _generate_url(
-        self, tickers: list[Ticker], exchange: Exchange, interval: Interval
+        self, tickers: List[Ticker], exchange: Exchange, interval: Interval
     ) -> str:
         pass
 

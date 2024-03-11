@@ -1,3 +1,5 @@
+from typing import List
+
 from trading_bot.data.enums.exchange import Exchange
 from trading_bot.data.enums.interval import Interval
 from trading_bot.data.models.market_data import (
@@ -10,12 +12,12 @@ from trading_bot.utils.logging import TradingBotLogger
 
 class BinanceMarketDataProvider(MarketDataProvider):
 
-    def __init__(self, tickers: list[Ticker], interval: Interval):
+    def __init__(self, tickers: List[Ticker], interval: Interval):
         super().__init__(tickers, Exchange.BINANCE, interval, BinanceMarketData)
         self._logger = TradingBotLogger("BinanceMarketDataProvider").get_logger()
 
     def _generate_url(
-        self, tickers: list[Ticker], exchange: Exchange, interval: Interval
+        self, tickers: List[Ticker], exchange: Exchange, interval: Interval
     ) -> str:
         if len(tickers) == 1:
             return (

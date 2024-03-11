@@ -1,5 +1,6 @@
 import time
 from collections import deque
+from typing import List
 
 from trading_bot.data.models.market_data import MarketData
 
@@ -31,7 +32,7 @@ class Ticker:
 
     @property
     def market_data_as_list(self):
-        return list(self._data)
+        return List[self._data]
 
     @property
     def latest_market_data(self):
