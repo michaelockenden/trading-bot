@@ -1,6 +1,6 @@
 import time
 
-import websocket
+import websocket  # type: ignore
 
 from trading_bot.utils.logging import TradingBotLogger
 
