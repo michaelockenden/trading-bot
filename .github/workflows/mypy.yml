@@ -17,4 +17,5 @@ jobs:
           pip install mypy environs pydantic requests Flask flask-socketio websocket
       - name: Run Mypy
         run: |
+          mypy --install-types
           mypy trading_bot/
