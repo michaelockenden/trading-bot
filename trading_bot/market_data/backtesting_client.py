@@ -7,20 +7,20 @@ import csv
 
 
 class BacktestingEnvironment:
-    def __init__(self, csv_file):
+    def __init__(self, csv_file: str):
         self.app = Flask(__name__)
         self.socketio = SocketIO(self.app)
         self.csv_file = csv_file
 
         @self.app.route('/')
-        def index():
+        def index() -> str:
             return render_template('index.html')
 
         @self.socketio.on('connect')
-        def handle_connect():
+        def handle_connect() -> None:
             threading.Thread(target=self.stream_data).start()
 
-    def stream_data(self):
+    def stream_data(self) -> None:
         with open(self.csv_file, 'r') as file:
             reader = csv.reader(file)
             for row in reader:
@@ -32,7 +32,7 @@ class BacktestingEnvironment:
                 self.socketio.emit('data', data)
                 time.sleep(1)
 
-    def run(self, host='localhost', port=5000):
+    def run(self, host: str = 'localhost', port: int = 5000) -> None:
         self.socketio.run(self.app, host=host, port=port, allow_unsafe_werkzeug=True)
 
 

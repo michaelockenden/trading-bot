@@ -1,5 +1,6 @@
 import threading
 import time
+from abc import abstractmethod
 from typing import Type
 
 from trading_bot.data.enums.exchange import Exchange
@@ -25,9 +26,11 @@ class MarketDataProvider(WebsocketClient):
         self._tickers = tickers
         self._exchange = exchange
         self._market_data_model = market_data_model
-        self._thread = threading.Thread(target=super().run).start()
+        self._thread = threading.Thread(target=super().run)
+        self._thread.start()
         self._logger = TradingBotLogger("MarketDataProvider").get_logger()
 
+    @abstractmethod
     def _generate_url(
         self, tickers: list[Ticker], exchange: Exchange, interval: Interval
     ) -> str:

@@ -26,5 +26,5 @@ class BinanceMarketDataProvider(MarketDataProvider):
             stream_names = []
             for ticker in tickers:
                 stream_names.append(f"{ticker.symbol}@kline_{interval.value}")
-            stream_names = "/".join(stream_names)
-            return exchange.value["websocket"] + f"/stream?streams={stream_names}"
+            streams = "/".join(stream_names)
+            return exchange.value["websocket"] + f"/stream?streams={streams}"
