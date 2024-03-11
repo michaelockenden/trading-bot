@@ -13,6 +13,8 @@ pandas = "^2.2.1"
 pydantic = "^2.6.3"
 requests = "^2.31.0"
 environs = "^11.0.0"
+flask = "^3.0.2"
+flask-socketio = "^5.3.6"
 
 [tool.poetry.group.dev.dependencies]
 black = "^24.2.0"
