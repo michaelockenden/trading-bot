@@ -1,5 +1,3 @@
-import time
-
 from trading_bot.client.binance_client import BinanceClient
 from trading_bot.data.enums.interval import Interval
 from trading_bot.data.models.ticker import Ticker
@@ -11,5 +9,5 @@ if __name__ == "__main__":
     provider = b_client.market_data_provider
     ticker = provider.get_ticker("BTCUSDT")
     ticker.wait_for_data(30)
-    print(ticker.latest_market_data.close_price)
+    print(b_client.account_manager.get_account_value_usd())
     provider.stop()

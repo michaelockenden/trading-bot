@@ -1,19 +1,11 @@
 import hashlib
 import hmac
+import time
 
 import requests
-import time
 
 from trading_bot.data.enums.exchange import Exchange
 from trading_bot.data.enums.time_units import TimeUnits
-
-
-class ExchangeAccount:
-    def __init__(self, api_key: str, api_secret: str, exchange: Exchange):
-        self._api = ExchangeAPI(api_key, api_secret, exchange)
-
-    def get_account_info(self):
-        return self._api.get_account_info()
 
 
 class ExchangeAPI:
@@ -22,7 +14,7 @@ class ExchangeAPI:
         self._api_secret = api_secret
         self._base_url = exchange.value["http"]
 
-    def send_signed_request(self, method, endpoint, params=None):
+    def _send_signed_request(self, method, endpoint, params=None):
         if params is None:
             params = {}
         timestamp = int(time.time() * TimeUnits.MILLIS_PER_SECOND.value)
@@ -40,6 +32,19 @@ class ExchangeAPI:
             self._api_secret.encode(), query_string.encode(), hashlib.sha256
         ).hexdigest()
 
-    def get_account_info(self):
-        endpoint = "/api/v3/account"
-        return self.send_signed_request("GET", endpoint)
+    def get_account_info(self, endpoint):
+        return self._send_signed_request("GET", endpoint)
+
+    def get_price_info(self, endpoint):
+        return requests.get(self._base_url + endpoint).json()
+
+
+class ExchangeAccount:
+    def __init__(self, exchange_api: ExchangeAPI):
+        self._api = exchange_api
+
+    def get_account_info(self, endpoint):
+        return self._api.get_account_info(endpoint)
+
+    def get_price_info(self, endpoint):
+        return self._api.get_price_info(endpoint)

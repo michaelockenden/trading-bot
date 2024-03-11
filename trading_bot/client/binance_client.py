@@ -1,3 +1,4 @@
+from trading_bot.account.binance_exchange_account import BinanceExchangeAccount
 from trading_bot.data.enums.interval import Interval
 from trading_bot.data.models.ticker import Ticker
 from trading_bot.market_data.binance_market_data_provider import (
@@ -11,5 +12,7 @@ class BinanceClient(CryptoClient):
 
     def __init__(self, tickers: list[Ticker], interval: Interval):
         super().__init__(
-            OrderPlacementManager(), BinanceMarketDataProvider(tickers, interval)
+            OrderPlacementManager(),
+            BinanceMarketDataProvider(tickers, interval),
+            BinanceExchangeAccount("", ""),
         )
