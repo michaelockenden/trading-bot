@@ -7,14 +7,14 @@ jobs:
     runs-on: ubuntu-latest
     name: Mypy
     steps:
-    - uses: actions/checkout@v1
-    - name: Set up Python 3.11
-      uses: actions/setup-python@v1
-      with:
-        python-version: 3.11
-    - name: Install Dependencies
-      run: |
-        pip install mypy
-    - name: mypy
-      run: |
-        mypy trading_bot/
+      - uses: actions/checkout@v1
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v1
+        with:
+          python-version: 3.11
+      - name: Install Dependencies
+        run: |
+          pip install mypy environs pydantic requests Flask flask-socketio websocket
+      - name: Run Mypy
+        run: |
+          mypy trading_bot/
