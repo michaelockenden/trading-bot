@@ -27,7 +27,7 @@ class BinanceExchangeAccount(ExchangeAccount):
         return balances
 
     def get_account_value_usd(self):
-        endpoint = f"/api/v1/ticker/price?symbol="
+        endpoint = "/api/v1/ticker/price?symbol="
         balances = self.get_balance()
         total_value = 0.0
 
@@ -42,4 +42,4 @@ class BinanceExchangeAccount(ExchangeAccount):
         if "USDT" in list(map(lambda x: x.upper(), balances.keys())):
             total_value += balances["USDT"]
 
-        return f"${total_value:.2f}"
+        return total_value
