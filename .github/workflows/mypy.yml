@@ -14,7 +14,7 @@ jobs:
           python-version: 3.11
       - name: Install Dependencies
         run: |
-          pip install mypy environs pydantic requests Flask flask-socketio websocket types-requests
+          pip install mypy environs pydantic requests Flask flask-socketio websocket types-requests types-websocket-client types-flask-socketio
       - name: Run Mypy
         run: |
           mypy trading_bot/
