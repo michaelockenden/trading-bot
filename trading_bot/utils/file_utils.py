@@ -1,3 +1,4 @@
+import os
 from pathlib import Path
 
 from environs import Env
@@ -9,4 +10,5 @@ def project_root() -> Path:
 
 def get_env():
     env = Env()
-    return env.read_env()
+    env.read_env()
+    return os.environ["API_KEY"], os.environ["API_SECRET"]
