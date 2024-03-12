@@ -1,5 +1,8 @@
+import json
+
 from pydantic import BaseModel, Field, AliasPath, AliasChoices
 
+from trading_bot.data.enums.exchange import Exchange
 from trading_bot.data.enums.interval import Interval
 
 
@@ -10,6 +13,27 @@ class MarketData(BaseModel):
     quote_volume: str
     candle_close: bool
     interval: Interval
+
+
+def get_binance_json_from_base_model(market_data_obj: MarketData):
+    binance_market_data_json = market_data_obj.dict()
+    binance_market_data_json["data"] = {
+        "s": binance_market_data_json.pop("symbol"),
+        "E": binance_market_data_json.pop("timestamp"),
+        "k": {
+            "c": binance_market_data_json.pop("close_price"),
+            "q": binance_market_data_json.pop("quote_volume"),
+            "x": binance_market_data_json.pop("candle_close"),
+            "i": binance_market_data_json.pop("interval").value,
+        },
+    }
+
+    return json.dumps(binance_market_data_json)
+
+
+def get_json_from_base_model(exchange: Exchange, market_data_obj: MarketData):
+    if exchange == Exchange.BINANCE:
+        return get_binance_json_from_base_model(market_data_obj)
 
 
 class BinanceMarketData(MarketData):

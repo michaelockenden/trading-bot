@@ -21,6 +21,10 @@ class WebsocketClient:
     def stopped(self):
         return self._stopped
 
+    @property
+    def logger(self):
+        return self._logger
+
     @stopped.setter
     def stopped(self, value):
         self._stopped = value
@@ -41,7 +45,7 @@ class WebsocketClient:
 
     def _on_close(self, ws, close_status_code, close_msg):
         self._connected = False
-        self._logger.info("### closed ###")
+        self._logger.info(f"Closed connection: {close_status_code=}, {close_msg=}")
 
     def _on_open(self, ws):
         self._connected = True
@@ -58,6 +62,6 @@ class WebsocketClient:
 
     def run(self):
         self._stopped = False
-        while not self._stopped:
+        while not self._stopped and not self._connected:
             self._ws.run_forever()
             time.sleep(5)
