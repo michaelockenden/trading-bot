@@ -12,30 +12,29 @@ class BacktestingEnvironment:
         self.socketio = SocketIO(self.app)
         self.csv_file = csv_file
 
-        @self.app.route('/')
+        @self.app.route("/")
         def index() -> str:
-            return render_template('index.html')
+            return render_template("index.html")
 
-        @self.socketio.on('connect')
+        @self.socketio.on("connect")
         def handle_connect() -> None:
             threading.Thread(target=self.stream_data).start()
 
     def stream_data(self) -> None:
-        with open(self.csv_file, 'r') as file:
+        with open(self.csv_file, "r") as file:
             reader = csv.reader(file)
             for row in reader:
                 timestamp = row[0]
-                data = {
-                    'timestamp': timestamp,
-                    'price': float(row[4])
-                }
-                self.socketio.emit('data', data)
+                data = {"timestamp": timestamp, "price": float(row[4])}
+                self.socketio.emit("data", data)
                 time.sleep(1)
 
-    def run(self, host: str = 'localhost', port: int = 5000) -> None:
-        self.socketio.run(self.app, host=host, port=port, allow_unsafe_werkzeug=True)
-
-
-if __name__ == '__main__':
-    backtesting_env = BacktestingEnvironment('csv.csv')
-    backtesting_env.run()
+    def run(self, host: str = "localhost", port: int = 5000) -> None:
+        self.socketio.run(
+            self.app,
+            host=host,
+            port=port,
+            use_reloader=False,
+            log_output=False,
+            allow_unsafe_werkzeug=True,
+        )
