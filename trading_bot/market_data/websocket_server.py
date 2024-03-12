@@ -1,7 +1,7 @@
 import asyncio
 import csv
 
-import websockets
+import websockets  # type: ignore
 
 from trading_bot.data.enums.exchange import Exchange
 from trading_bot.data.models.market_data import MarketData, get_json_from_base_model
