@@ -1028,6 +1028,20 @@ files = [
 ]
 
 [[package]]
+name = "types-flask-socketio"
+version = "5.3.0.20240311"
+description = "Typing stubs for Flask-SocketIO"
+optional = false
+python-versions = ">=3.8"
+files = [
+    {file = "types-Flask-SocketIO-5.3.0.20240311.tar.gz", hash = "sha256:b841ce9cab0386aedfd9ac3fe1742ac56b786d50bacbd3ec6fa85e2e92cc0015"},
+    {file = "types_Flask_SocketIO-5.3.0.20240311-py3-none-any.whl", hash = "sha256:aa784105d48046f7b6ee46b034de99bce4465fc95ab1b1cfb1f74f4947530118"},
+]
+
+[package.dependencies]
+Flask = ">=0.9"
+
+[[package]]
 name = "types-requests"
 version = "2.31.0.20240311"
 description = "Typing stubs for requests"
@@ -1150,4 +1164,4 @@ h11 = ">=0.9.0,<1"
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "da517593201abba176c164ed7aa1df9ab3365dc8a3c5de132467f2184e61d4d2"
+content-hash = "105d01e4a45696835c137c2ff2645807c89a2b0c8b14c5277013d3b76264efe7"
