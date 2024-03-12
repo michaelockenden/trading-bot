@@ -2,6 +2,7 @@ import threading
 import time
 from abc import abstractmethod
 from typing import Type
+from abc import ABC, abstractmethod
 
 from trading_bot.data.enums.exchange import Exchange
 from trading_bot.data.enums.interval import Interval
@@ -13,7 +14,7 @@ from trading_bot.utils.logging import TradingBotLogger
 from trading_bot.utils.num_utils import remove_trailing_zeroes
 
 
-class MarketDataProvider(WebsocketClient):
+class MarketDataProvider(WebsocketClient, ABC):
 
     def __init__(
         self,
@@ -33,8 +34,7 @@ class MarketDataProvider(WebsocketClient):
     @abstractmethod
     def _generate_url(
         self, tickers: list[Ticker], exchange: Exchange, interval: Interval
-    ) -> str:
-        pass
+    ) -> str: ...
 
     def _on_message(self, ws, message):
         received_time = time.time()

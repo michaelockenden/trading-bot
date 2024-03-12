@@ -1028,20 +1028,6 @@ files = [
 ]
 
 [[package]]
-name = "types-flask-socketio"
-version = "5.3.0.20240311"
-description = "Typing stubs for Flask-SocketIO"
-optional = false
-python-versions = ">=3.8"
-files = [
-    {file = "types-Flask-SocketIO-5.3.0.20240311.tar.gz", hash = "sha256:b841ce9cab0386aedfd9ac3fe1742ac56b786d50bacbd3ec6fa85e2e92cc0015"},
-    {file = "types_Flask_SocketIO-5.3.0.20240311-py3-none-any.whl", hash = "sha256:aa784105d48046f7b6ee46b034de99bce4465fc95ab1b1cfb1f74f4947530118"},
-]
-
-[package.dependencies]
-Flask = ">=0.9"
-
-[[package]]
 name = "types-requests"
 version = "2.31.0.20240311"
 description = "Typing stubs for requests"
