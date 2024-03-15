@@ -32,8 +32,11 @@ def get_binance_json_from_base_model(market_data_obj: MarketData):
 
 
 def get_json_from_base_model(exchange: Exchange, market_data_obj: MarketData):
-    if exchange == Exchange.BINANCE:
-        return get_binance_json_from_base_model(market_data_obj)
+    match exchange:
+        case Exchange.BINANCE:
+            return get_binance_json_from_base_model(market_data_obj)
+        case _:
+            pass
 
 
 class BinanceMarketData(MarketData):

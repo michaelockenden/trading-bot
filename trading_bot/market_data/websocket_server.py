@@ -5,6 +5,7 @@ import websockets  # type: ignore
 
 from trading_bot.data.enums.exchange import Exchange
 from trading_bot.data.models.market_data import MarketData, get_json_from_base_model
+from trading_bot.utils.logging import TradingBotLogger
 
 
 class WebsocketServer:
@@ -12,6 +13,7 @@ class WebsocketServer:
     def __init__(self, csv_file, exchange: Exchange):
         self._csv_file = csv_file
         self._exchange = exchange
+        self._logger = TradingBotLogger("WebsocketServer").get_logger()
         self._server = websockets.serve(self.stream_data, "localhost", 5000)
         self._event_loop = asyncio.get_event_loop()
         self._event_loop.run_until_complete(self._server)
@@ -31,4 +33,5 @@ class WebsocketServer:
                 }
 
                 data = MarketData(**data)
+                self._logger.info(f"Sent message > {data}")
                 await websocket.send(get_json_from_base_model(self._exchange, data))

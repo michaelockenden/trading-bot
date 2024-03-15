@@ -1,11 +1,8 @@
-import time
-
 from trading_bot.client.binance_client import BinanceClient
 from trading_bot.data.enums.interval import Interval
+from trading_bot.data.models.market_data import BinanceMarketData
 from trading_bot.data.models.ticker import Ticker
-from trading_bot.market_data.binance_market_data_server import BinanceMarketDataServer
-from trading_bot.market_data.websocket_client import WebsocketClient
-from trading_bot.utils.file_utils import project_root
+from trading_bot.market_data.test_websocket_client import TestWebsocketClient
 
 
 def main1():
@@ -20,9 +17,7 @@ def main1():
 
 
 def main2():
-    BinanceMarketDataServer(project_root() / "trading_bot/market_data/csv.csv")
-    # time.sleep(5)
-    # WebsocketClient("ws://127.0.0.1:5000").run()
+    TestWebsocketClient(BinanceMarketData).run()
 
 
 if __name__ == "__main__":
