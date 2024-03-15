@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Backtesting Environment</title>
+    <!-- Add any CSS or external libraries here -->
+</head>
+<body>
+    <h1>Backtesting Environment</h1>
+    <div id="data-container">
+        <!-- Data received from the backtesting server will be displayed here -->
+    </div>
+    <!-- Add any JavaScript or scripts here -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.4.1/socket.io.js"></script>
+    <script>
+        const socket = io.connect('http://localhost:5000');
+        socket.on('data', function(data) {
+            // Append the received data to the data container
+            document.getElementById('data-container').innerHTML += `<p>Timestamp: ${data.timestamp}, Price: ${data.price}</p>`;
+        });
+    </script>
+</body>
+</html>

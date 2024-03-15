@@ -1,7 +1,5 @@
 import time
-
-import websocket
-
+import websocket  # type: ignore
 from trading_bot.utils.logging import TradingBotLogger
 
 
@@ -22,8 +20,12 @@ class WebsocketClient:
         return self._stopped
 
     @stopped.setter
-    def stopped(self, value):
+    def stopped(self, value: bool):
         self._stopped = value
+
+    @property
+    def logger(self):
+        return self._logger
 
     def wait_for_connection(self, timeout: int):
         count = 0
@@ -41,7 +43,7 @@ class WebsocketClient:
 
     def _on_close(self, ws, close_status_code, close_msg):
         self._connected = False
-        self._logger.info("### closed ###")
+        self._logger.info(f"Closed connection: {close_status_code=}, {close_msg=}")
 
     def _on_open(self, ws):
         self._connected = True
@@ -58,6 +60,6 @@ class WebsocketClient:
 
     def run(self):
         self._stopped = False
-        while not self._stopped:
+        while not self._stopped and not self._connected:
             self._ws.run_forever()
             time.sleep(5)

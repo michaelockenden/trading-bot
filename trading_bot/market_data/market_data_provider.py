@@ -1,5 +1,6 @@
 import threading
 import time
+from abc import abstractmethod
 from typing import Type
 from abc import ABC, abstractmethod
 
@@ -26,7 +27,8 @@ class MarketDataProvider(WebsocketClient, ABC):
         self._tickers = tickers
         self._exchange = exchange
         self._market_data_model = market_data_model
-        self._thread = threading.Thread(target=super().run).start()
+        self._thread = threading.Thread(target=super().run)
+        self._thread.start()
         self._logger = TradingBotLogger("MarketDataProvider").get_logger()
 
     @abstractmethod
