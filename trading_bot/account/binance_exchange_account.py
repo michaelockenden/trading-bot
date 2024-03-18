@@ -35,7 +35,7 @@ class BinanceExchangeAccount(ExchangeAccount):
             if asset.upper() == "USDT":
                 continue
             price_usd = float(
-                self.get_price_info(f"{endpoint}{asset.upper()}USDT")["price"]
+                super().get_price_info(f"{endpoint}{asset.upper()}USDT")["price"]
             )
             total_value += balance * price_usd
 
