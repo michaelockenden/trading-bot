@@ -44,6 +44,8 @@ class WebsocketClient:
     def _on_close(self, ws, close_status_code, close_msg):
         self._connected = False
         self._logger.info(f"Closed connection: {close_status_code=}, {close_msg=}")
+        if int(close_status_code) == 1000 and close_msg == "":
+            self._stopped = True
 
     def _on_open(self, ws):
         self._connected = True
